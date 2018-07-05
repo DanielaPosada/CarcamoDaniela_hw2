@@ -1,14 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.fftpack import fft, fftfreq
 # a. Lea y almacene los datos de Signalcsv
 archivo=np.genfromtxt("Signal.csv",delimiter=",",skip_header=0)
 # b. Grafique la senal original y guarde la grafica sin mostrarla en Signalpdf
-#plt.figure()
-#plt.plot(archivo[:,0],archivo[:,1])
-#plt.savefig('Signal.pdf')
-npuntos=archivo[:,1].size
+plt.figure()
+plt.plot(archivo[:,0],archivo[:,1])
+plt.savefig('Signal.pdf')
 # c. Implementacion propia transformada de Fourier
+npuntos=archivo[:,1].size
 Fourier=np.ones((npuntos),dtype=np.complex64)
 for h in range(npuntos):
 	G=0.0
@@ -26,23 +25,52 @@ for k in range(npuntos/2,npuntos):
 	frecuencias[k]=-((npuntos/2)-j)
 	j=j+1
 frecuencias=frecuencias/(0.0284040178571)
-f1=2
-f2=3
-f3=1
+
+nuevo1=Fourier.astype(dtype=np.complex64)
+maximo1=nuevo1.max()
+
+for h in range(npuntos):
+	if(nuevo1[h]==maximo1):
+		nuevo1[h]=0
+		nuevo1[-h]=0
+		f1=frecuencias[h]
+maximo2=nuevo1.max()
+for h in range(npuntos):
+	if(nuevo1[h]==maximo2):
+		nuevo1[h]=0
+		nuevo1[-h]=0
+		f2=frecuencias[h]
+maximo3=nuevo1.max()
+for h in range(npuntos):
+	if(nuevo1[h]==maximo3):
+		f3=frecuencias[h]
+#f1=0
+#f2=0
+#f3=0
+#for i in range(npuntos):
+#	if(f1<nuevo1[i]):
+#		
+
 #e. Imprima un mensaje con las tres frecuencias
 print 'Las tres frecuencias principales de la senal son:', f1, f2, f3
-
-
-fft_x = fft(archivo[:,1]) / npuntos # FFT Normalizada
-
-freq = fftfreq(npuntos, 0.0284040178571/npuntos) # Recuperamos las frecuencias
-print freq[-10::]
-print frecuencias[-10::]
+#d. Grafique la transformada de Fourier de la senal original y guarde la grafica sin mostrarla
 plt.figure()
-plt.plot(freq,abs(fft_x))
-plt.figure()
-plt.plot(frecuancias,abs(Fourier))
-#plt.show()
+plt.plot(frecuencias,abs(Fourier))
+plt.show()
 #plt.savefig('TF_Signal.pdf')
+#f. Haga un filtro pasa bajos usando como frecuencia de corte fc=1000
+nuevo=Fourier.astype(dtype=np.complex64)
+for i in range(frecuencias.size):
+	if (abs(frecuencias[i])>=1000):
+		nuevo[i]=0
+#g.Grafique la senal original y la Senal Filtrada. 
+fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1)
+ax1.plot(frecuencias,abs(Fourier))
+ax2.plot(frecuencias,abs(nuevo))
+plt.savefig('SignalFiltro.pdf')
+
+
+
+
 
 
