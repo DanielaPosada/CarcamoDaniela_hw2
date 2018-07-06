@@ -35,8 +35,6 @@ for i in range(npuntos):
 		f1=frecuencias[i]
 	if(f2<nuevo1[i] and frecuencias[i]!=f1):
 		f2=frecuencias[i]
-	if(f3<nuevo1[i] and frecuencias[i]!=f2 and frecuencias[i]!=f1):
-		f3=frecuencias[i]
 maximo1=nuevo1.max()
 for h in range(npuntos):
 	if(nuevo1[h]==maximo1):
@@ -51,15 +49,13 @@ maximo3=nuevo1.max()
 for h in range(npuntos):
 	if(nuevo1[h]==maximo3):
 		f3=frecuencias[h]
-	
-
 #e. Imprima un mensaje con las tres frecuencias
 print 'Las tres frecuencias principales de la senal son:', f1, f2, f3
 #d. Grafique la transformada de Fourier de la senal original y guarde la grafica sin mostrarla
 plt.figure()
 plt.plot(frecuencias,abs(Fourier))
-plt.show()
-#plt.savefig('TF_Signal.pdf')
+#plt.show()
+plt.savefig('TF_Signal.pdf')
 #f. Haga un filtro pasa bajos usando como frecuencia de corte fc=1000
 nuevo=Fourier.astype(dtype=np.complex64)
 for i in range(frecuencias.size):
