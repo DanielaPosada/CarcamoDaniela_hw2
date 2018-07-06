@@ -27,29 +27,31 @@ for k in range(npuntos/2,npuntos):
 frecuencias=frecuencias/(0.0284040178571)
 
 nuevo1=Fourier.astype(dtype=np.complex64)
+f1=0
+f2=0
+f3=0
+for i in range(npuntos):
+	if(f1<nuevo1[i]):
+		f1=frecuencias[i]
+	if(f2<nuevo1[i] and frecuencias[i]!=f1):
+		f2=frecuencias[i]
+	if(f3<nuevo1[i] and frecuencias[i]!=f2 and frecuencias[i]!=f1):
+		f3=frecuencias[i]
 maximo1=nuevo1.max()
-
 for h in range(npuntos):
 	if(nuevo1[h]==maximo1):
 		nuevo1[h]=0
 		nuevo1[-h]=0
-		f1=frecuencias[h]
 maximo2=nuevo1.max()
 for h in range(npuntos):
 	if(nuevo1[h]==maximo2):
 		nuevo1[h]=0
 		nuevo1[-h]=0
-		f2=frecuencias[h]
 maximo3=nuevo1.max()
 for h in range(npuntos):
 	if(nuevo1[h]==maximo3):
 		f3=frecuencias[h]
-#f1=0
-#f2=0
-#f3=0
-#for i in range(npuntos):
-#	if(f1<nuevo1[i]):
-#		
+	
 
 #e. Imprima un mensaje con las tres frecuencias
 print 'Las tres frecuencias principales de la senal son:', f1, f2, f3
