@@ -35,6 +35,9 @@ for i in range(npuntos):
 		f1=frecuencias[i]
 	if(f2<nuevo1[i] and frecuencias[i]!=f1):
 		f2=frecuencias[i]
+#if(f3<nuevo1[i] and frecuencias[i]!=f1 and frecuencias[i]!=f2):
+#	f3=frecuencias[i]
+#Por alguna razon el algoritmo no encuentra la frecuencia 3 correctamente, entonces hice otra implementacion para poder obtener esta frecuencia. 
 maximo1=nuevo1.max()
 for h in range(npuntos):
 	if(nuevo1[h]==maximo1):
@@ -63,8 +66,15 @@ for i in range(frecuencias.size):
 		nuevo[i]=0
 #g.Grafique la senal original y la Senal Filtrada. 
 fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1)
-ax1.plot(frecuencias,abs(Fourier))
-ax2.plot(frecuencias,abs(nuevo))
+ax1.plot(archivo[:,0],archivo[:,1])
+	#Senal filtrada
+InversaFourier=np.ones((npuntos))
+for h in range(npuntos):
+	G=0.0
+	for k in range(npuntos):
+		G+=nuevo[k]*np.exp(1j*2.0*np.pi*k*h/npuntos)
+	InversaFourier[h]=G*npuntos
+ax2.plot(archivo[:,0],InversaFourier)
 plt.savefig('SignalFiltro.pdf')
 
 
