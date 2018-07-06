@@ -35,8 +35,8 @@ for i in range(npuntos):
 		f1=frecuencias[i]
 	if(f2<nuevo1[i] and frecuencias[i]!=f1):
 		f2=frecuencias[i]
-#if(f3<nuevo1[i] and frecuencias[i]!=f1 and frecuencias[i]!=f2):
-#	f3=frecuencias[i]
+	#if(f3<nuevo1[i] and frecuencias[i]!=f1 and frecuencias[i]!=f2):
+#		f3=frecuencias[i]
 #Por alguna razon el algoritmo no encuentra la frecuencia 3 correctamente, entonces hice otra implementacion para poder obtener esta frecuencia. 
 maximo1=nuevo1.max()
 for h in range(npuntos):
