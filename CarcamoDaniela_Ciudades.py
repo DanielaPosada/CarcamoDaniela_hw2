@@ -1,8 +1,8 @@
 import numpy as np
-import matplotlib.pylab as plt
-import scipy.io.wavfile as wav
-from scipy.fftpack import fft, fftfreq
+from scipy.fftpack import fft2, fftfreq, ifft2, fftshift
+from scipy import ndimage
 from scipy.signal import convolve2d
+import matplotlib.pylab as plt
 import Image
 from PIL import Image
 # a. Leer imagenes y guardarlas en arreglos
@@ -26,9 +26,50 @@ ax4.imshow(triangulos,cmap='gray')
 ax4.autoscale(False)
 plt.savefig('imagenes.pdf')
 #c. Obtener la transformada de Fourier de las cuatro imagenes
-a, b=Barcelona.size
+#barce = plt.imread('Barcelona.jpg').astype(float)
+#barce_fft = fft2(barce)
 
-#d. Hacer una grafica con cuatro subplots correspondientes a las transformadas de Fourier de las cuatro imágenes, y guardarla sin mostrarla en transformadaspdf
+#def plot_spectrum(im_fft):
+ #   from matplotlib.colors import LogNorm
+    # A logarithmic colormap
+  #  plt.imshow(np.abs(im_fft), norm=LogNorm(vmin=5))
+   # plt.colorbar()
+
+#plt.figure()
+#plot_spectrum(barce_fft)
+#plt.title('Fourier transform')
+
+#paris= plt.imread('Paris.jpg').astype(float)
+#paris_fft = fft2(paris)
+
+#def plot_spectrum(im_fft):
+ #   from matplotlib.colors import LogNorm
+    # A logarithmic colormap
+  #  plt.imshow(np.abs(im_fft), norm=LogNorm(vmin=5))
+   # plt.colorbar()
+
+#plt.figure()
+#plot_spectrum(paris_fft)
+#plt.title('Fourier transform')
+
+#plt.figure()
+image = ndimage.imread('Paris.jpg', flatten=True)     # flatten=True gives a greyscale image
+fft2r = fft2(image)
+shi=fftshift(fft2r)
+plt.figure()
+em=20*np.log(np.abs(shi))
+plt.imshow(em, cmap='gray')
+plt.show()
+
+#f = fft2(Barcelona)
+#
+
+#FBarcelona=fft2(Barcelona)
+#FParis=fft2(Paris)
+#frac=fft2(frac)
+#triangulos=fft2(frac)
+#d. Hacer una grafica con cuatro subplots correspondientes a las transformadas de Fourier de las cuatro imagenes, y guardarla sin mostrarla en transformadaspdf
+
 
 #ax2.plot(Paris, cmap='gray')
 #ax3.plot(frac, cmap='gray')
