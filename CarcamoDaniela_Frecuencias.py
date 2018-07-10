@@ -5,6 +5,9 @@ archivo=np.genfromtxt("Signal.csv",delimiter=",",skip_header=0)
 # b. Grafique la senal original y guarde la grafica sin mostrarla en Signalpdf
 plt.figure()
 plt.plot(archivo[:,0],archivo[:,1])
+plt.xlabel('tiempo (s)')
+plt.ylabel('Magnitud Senal')
+plt.title("Signal")
 plt.savefig('Signal.pdf')
 # c. Implementacion propia transformada de Fourier
 npuntos=archivo[:,1].size
@@ -52,12 +55,14 @@ maximo3=nuevo1.max()
 for h in range(npuntos):
 	if(nuevo1[h]==maximo3):
 		f3=frecuencias[h]
-#e. Imprima un mensaje con las tres frecuencias
+#d. Imprima un mensaje con las tres frecuencias
 print 'Las tres frecuencias principales de la senal son:', f1, f2, f3
-#d. Grafique la transformada de Fourier de la senal original y guarde la grafica sin mostrarla
+#e. Grafique la transformada de Fourier de la senal original y guarde la grafica sin mostrarla
 plt.figure()
+plt.xlabel('Frecuencias de muestreo (Hz)')
+plt.ylabel('TF')
+plt.title("TF_Signal")
 plt.plot(frecuencias,abs(Fourier))
-#plt.show()
 plt.savefig('TF_Signal.pdf')
 #f. Haga un filtro pasa bajos usando como frecuencia de corte fc=1000
 nuevo=Fourier.astype(dtype=np.complex64)
@@ -65,8 +70,11 @@ for i in range(frecuencias.size):
 	if (abs(frecuencias[i])>=1000):
 		nuevo[i]=0
 #g.Grafique la senal original y la Senal Filtrada. 
-fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1)
-ax1.plot(archivo[:,0],archivo[:,1])
+plt.figure()
+plt.subplot(2,1,1)
+plt.plot(archivo[:,0],archivo[:,1])
+plt.ylabel('Magnitud')
+plt.title("Senal Original")
 	#Senal filtrada
 InversaFourier=np.ones((npuntos))
 for h in range(npuntos):
@@ -74,8 +82,13 @@ for h in range(npuntos):
 	for k in range(npuntos):
 		G+=nuevo[k]*np.exp(1j*2.0*np.pi*k*h/npuntos)
 	InversaFourier[h]=G*npuntos
-ax2.plot(archivo[:,0],InversaFourier)
+plt.subplot(2,1,2)
+plt.plot(archivo[:,0],InversaFourier)
+plt.xlabel('tiempo(s)')
+plt.ylabel('Magnitud')
+plt.title("Senal Filtrada")
 plt.savefig('SignalFiltro.pdf')
+
 
 
 
